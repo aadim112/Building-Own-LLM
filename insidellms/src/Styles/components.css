@@ -1,0 +1,334 @@
+/* components.css — import this once in index.js or App.js */
+
+/* ─── Section Anchor ─────────────────────────────────────────── */
+.section-anchor {
+  position: relative;
+  top: -80px;        /* offset for sticky header */
+  visibility: hidden;
+  height: 1px;
+  top: -80px;
+}
+
+/* ─── TextSection ────────────────────────────────────────────── */
+.ts-block {
+  margin-bottom: 2rem;
+}
+.ts-heading {
+  color: #1a1a2e;
+  border-bottom: 2px solid #e8e8e8;
+  padding-bottom: 6px;
+  margin-bottom: 0.75rem;
+}
+.ts-h1 { font-size: 2rem; }
+.ts-h2 { font-size: 1.5rem; }
+.ts-h3 { font-size: 1.2rem; border-bottom-style: dashed; }
+.ts-body {
+  color: #333;
+  line-height: 1.75;
+  font-size: 1rem;
+}
+.ts-body p { margin: 0 0 1em; }
+
+/* ─── ImageBlock ─────────────────────────────────────────────── */
+.ib-figure {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+.ib-img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+.ib-caption {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* ─── CodeSnippet ────────────────────────────────────────────── */
+.cs-wrapper {
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #d0d7de;
+  font-size: 0.88rem;
+}
+.cs-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #2d333b;
+  padding: 8px 14px;
+}
+.cs-lang {
+  background: #4a90e2;
+  color: #fff;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-family: monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cs-title {
+  color: #cdd9e5;
+  font-size: 0.82rem;
+  flex: 1;
+}
+.cs-copy {
+  background: none;
+  border: 1px solid #555;
+  color: #cdd9e5;
+  padding: 3px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.15s;
+}
+.cs-copy:hover { background: #444; border-color: #888; }
+.cs-pre {
+  background: #1e2329;
+  color: #e6edf3;
+  margin: 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  line-height: 1.65;
+  font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+}
+
+/* ─── Callout ────────────────────────────────────────────────── */
+.callout {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  margin: 1.25rem 0;
+  font-size: 0.93rem;
+  line-height: 1.6;
+  border-left: 4px solid;
+}
+.callout-info    { background: #007bff9a; border-color: #4a90e2; }
+.callout-tip     { background: #eafaf1; border-color: #27ae60; }
+.callout-warning { background: #ffab0280; border-color: #e67e22; }
+.callout-math    { background: #a273ff85; border-color: #8e44ad; font-family: "Georgia", serif; }
+.callout-icon { font-size: 1.2rem; flex-shrink: 0; line-height: 1.4; }
+.callout-label { display: block; margin-bottom: 4px; }
+
+/* ─── DiagramSection ─────────────────────────────────────────── */
+.ds-wrapper {
+  margin: 2rem 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.ds-title {
+  margin: 0;
+  padding: 12px 16px;
+  background: #f7f7f7;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1rem;
+  color: #1a1a2e;
+}
+.ds-stage {
+  padding: 20px;
+  background: #fff;
+}
+.ds-caption {
+  margin: 0;
+  padding: 10px 16px;
+  background: #fafafa;
+  border-top: 1px solid #e0e0e0;
+  font-size: 0.82rem;
+  color: #888;
+  font-style: italic;
+}
+
+/* ─── Sidebar ────────────────────────────────────────────────── */
+.sidebar-nav {
+  padding-top: 8px;
+}
+.sidebar-heading {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: red;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+}
+.nav-list, .nav-children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-children { padding-left: 10px; }
+.nav-item { margin: 2px 0; }
+.nav-row {
+  display: flex;
+  align-items: center;
+}
+.nav-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  font-size: 0.8rem;
+  width: 18px;
+  flex-shrink: 0;
+  padding: 0;
+}
+.nav-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #333;
+  padding: 5px 8px;
+  border-radius: 5px;
+  width: 100%;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-link:hover {
+  background: #e4e8ff;
+  color: #4a90e2;
+}
+.depth-1 .nav-link { font-size: 0.83rem; color: #555; }
+.depth-2 .nav-link { font-size: 0.78rem; color: #777; }
+
+
+
+/* ─── StickyNote ─────────────────────────────────────────────── */
+.sticky-note {
+  position: relative;
+  padding: 18px 16px 26px 16px;
+  border-radius: 2px;
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.12),
+    0 8px 18px rgba(0,0,0,0.12),
+    inset 0 0 25px rgba(255,255,255,0.35);
+  font-size: 1.05rem;
+  line-height: 1.4;
+  color: #3a3a2a;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.sticky-note:hover {
+  transform: rotate(0deg) scale(1.04) !important;
+  box-shadow:
+    0 2px 5px rgba(0,0,0,0.15),
+    0 14px 28px rgba(0,0,0,0.18),
+    inset 0 0 25px rgba(255,255,255,0.35);
+  z-index: 5;
+}
+.sticky-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: rgba(0,0,0,0.25);
+}
+.sticky-body {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+ 
+/* Folded bottom-right corner */
+.sticky-fold {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  box-shadow: -1px -1px 4px rgba(0,0,0,0.12);
+}
+ 
+/* Tape strip across the top */
+.sticky-tape {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 60px;
+  height: 22px;
+  border: 1px solid rgba(255,255,255,0.7);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  opacity: 0.85;
+}
+ 
+/* Pin with round head */
+.sticky-pin {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 14px;
+  background: #999;
+  border-radius: 2px;
+}
+.sticky-pin-head {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff8a8a, #d44 70%);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.3);
+}
+ 
+/* ─── Sticky note rail (right-side floating column) ─────────────── */
+.sticky-rail {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: flex-end;
+  padding-right: 4px;
+}
+ 
+/* ─── StickyNotesRail item fade-in ──────────────────────────────── */
+.sticky-rail-item {
+  animation: stickyFadeIn 0.35s ease;
+}
+@keyframes stickyFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+ob-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #e6f3ee;
+  padding: 6px 14px;
+  border-bottom: 1px solid #c9d4d3;
+}
+.ob-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #27ae60;
+  flex-shrink: 0;
+}
+.ob-title {
+  color: #2d6a4f;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: monospace;
+}
+.ob-pre {
+  background: #f4faf7;
+  color: #1b3a2b;
+  margin: 0;
+  padding: 14px 18px;
+  overflow-x: scroll;
+  line-height: 1.6;
+  font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+}
+.ob-pre::-webkit-scrollbar{
+  display: none;
+}

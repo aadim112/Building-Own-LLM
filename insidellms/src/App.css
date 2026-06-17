@@ -1,38 +1,88 @@
-.App {
-  text-align: center;
-}
+/* App.css */
+* { box-sizing: border-box; }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #fff;
+  color: #1a1a2e;
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  height: 70px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
-.App-link {
-  color: #61dafb;
+.App-header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-container {
+  display: flex;
+  min-height: calc(100vh - 70px);
+}
+
+.Navigation-Section {
+  width: 250px;
+  flex-shrink: 0;
+  background-color: #f7f7f9;
+  padding: 24px 16px;
+  border-right: 1px solid #e4e4e4;
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+
+.Content-Section {
+  flex: 1;
+  padding: 32px 40px;
+  line-height: 1.7;
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.Content-Main {
+  flex: 1;
+  max-width: 760px;
+  min-width: 0;
+}
+
+/* Scrollbar styling for sidebar */
+.Navigation-Section::-webkit-scrollbar { width: 4px; }
+.Navigation-Section::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+.highlight {
+  background-color: #fef08a;
+  padding: 1.5px 3.5px;
+  border-radius: 3px;
+  font-weight: 600;
+  font-style: italic;
+}
+.highlight-purple{
+  background-color: #9166ff9b;
+  padding: 1.5px 3.5px;
+  border-radius: 3px;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.Content-Notes {
+  width: 200px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1000px) {
+  .Content-Notes { display: none; }
 }
