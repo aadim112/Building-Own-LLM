@@ -39,9 +39,9 @@ body {
   padding: 24px 16px;
   border-right: 1px solid #e4e4e4;
   position: sticky;
-  top: 70px;
-  height: calc(100vh - 70px);
+  height: 100vh;
   overflow-y: auto;
+  position: fixed;
 }
 
 .Content-Section {
@@ -51,11 +51,12 @@ body {
   display: flex;
   gap: 32px;
   align-items: flex-start;
+  margin-left: 250px
 }
 
 .Content-Main {
   flex: 1;
-  max-width: 760px;
+  max-width: 900px;
   min-width: 0;
 }
 
@@ -77,10 +78,22 @@ body {
   font-weight: 600;
   font-style: italic;
 }
+.highlight-grey{
+  background-color: #ddddddc7;
+  padding: 1.5px 3.5px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.code-line{
+font-family: 'Courier New', Courier, monospace;
+line-height: 1;
+}
 
 .Content-Notes {
   width: 200px;
   flex-shrink: 0;
+  display: none;
 }
 
 @media (max-width: 1000px) {
