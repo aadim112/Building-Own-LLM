@@ -148,12 +148,13 @@
   padding-top: 8px;
 }
 .sidebar-heading {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: red;
-  margin: 0 0 12px 0;
+  color: var(--text-secondary, #666);
+  margin: 0 0 16px 0;
   font-weight: 700;
+  padding-left: 8px;
 }
 .nav-list, .nav-children {
   list-style: none;
@@ -182,18 +183,40 @@
   cursor: pointer;
   text-align: left;
   font-size: 0.9rem;
-  color: #333;
-  padding: 5px 8px;
-  border-radius: 5px;
+  color: var(--text-primary, #333);
+  padding: 6px 8px;
+  border-radius: 6px;
   width: 100%;
   transition: background 0.15s, color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 .nav-link:hover {
-  background: #e4e8ff;
-  color: #4a90e2;
+  background: #e0e7ff;
+  color: var(--primary-color, #4f46e5);
 }
-.depth-1 .nav-link { font-size: 0.83rem; color: #555; }
-.depth-2 .nav-link { font-size: 0.78rem; color: #777; }
+.depth-1 .nav-link { font-size: 0.83rem; color: var(--text-secondary, #555); }
+.depth-2 .nav-link { font-size: 0.78rem; color: var(--text-muted, #777); }
+
+/* Locked Sidebar Nav Items */
+.locked-link {
+  color: var(--text-muted, #9ca3af) !important;
+}
+.locked-link:hover {
+  background: #f3f4f6;
+  color: var(--text-secondary, #4b5563) !important;
+}
+.nav-lock-svg {
+  color: var(--text-muted, #9ca3af);
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+.locked-link:hover .nav-lock-svg {
+  color: var(--text-primary, #111827);
+  opacity: 1;
+}
 
 
 

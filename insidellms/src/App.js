@@ -5,7 +5,11 @@
 //   2. Drop a <SectionAnchor id="your-id" /> where the section starts
 //   3. Fill with TextSection, ImageBlock, CodeSnippet, Callout, DiagramSection
 
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged, usingMockAuth } from './firebase';
+import Header from './Components/Header';
+import LockOverlay from './Components/LockOverlay';
+import './App.css';
 import '../src/Styles/components.css';
 
 // ── Layout components (always present) ──────────────────────────
@@ -54,6 +58,7 @@ import attweightToContextVec from './assets/attweightToContextVec.png'
 import sequentialWrapper from './assets/sequentialWrapper.png'
 import parallelMultiHead from './assets/parallelMultiHead.png'
 import shapeChanging from './assets/shapeChanging.png'
+import profile from './assets/profile.jpeg'
 
 
 // ════════════════════════════════════════════════════════════════
@@ -89,13 +94,21 @@ const NAV_ITEMS = [
   },
 ];
 
-function Content() {
+function Content({ user, signInWithGoogle, usingMockAuth }) {
+  const isAuthenticated = !!user;
   return (
     <>
       {/* ── Introduction ──────────────────────────────────────── */}
       <SectionAnchor id="intro"/>
       <TextSection title="Welcome to InsideLLMs" level={1} titleFont="montserrat" font="poppins"/>
-      <p>Welcome </p>
+      <div className='welcome'>
+        <p>Hello, I am Aditya P.</p>
+        Welcome! This website is designed to provide a clear and structured understanding 
+          of how Large Language Models (LLMs) work. From fundamental concepts to the key mechanisms 
+          behind modern language models, each topic is explained in an accessible and intuitive way.
+           Explore the content and build a deeper understanding of the technology powering today's AI systems.
+           The Information included in this webiste is inspired from book "Building you own LLM" by sebastian raschka and from the self understandings.
+      </div>
       <TextSection title="Understanding LLM" level={2} titleFont="montserrat" font="poppins">
         <ImageBlock src={hierarchy} alt="" caption="Hierarchical Depiction of LLM" width='80%'></ImageBlock>
         <p>
@@ -176,7 +189,8 @@ function Content() {
         <p>The GPT architecture employs only the decoder portion of the original transformer. It is designed for unidirectional, left-to-right processing, making it well suited for text generation and next-word prediction tasks to generate text in an iterative fashion, one word at a time.</p>
       </TextSection>
 
-      <SectionAnchor id="LLM"></SectionAnchor>
+      <div className={`locked-content-wrapper ${!isAuthenticated ? 'locked' : ''}`}>
+        <SectionAnchor id="LLM"></SectionAnchor>
         <div style={{width:'100%', display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'Lobster',fontSize:'35px',color:'black', textDecoration:'underline'}}>Large Language Models</div>
         <ImageBlock src={LLMStages} caption="" alt="" width='80%'></ImageBlock>
       <SectionAnchor id="cha2"></SectionAnchor>
@@ -1805,6 +1819,8 @@ Our architecture is identical; only the weights differ from the randomly-initial
             to turn it into an assistant like ChatGPT.
           </Callout>
         </TextSection>
+        {!isAuthenticated && <LockOverlay onSignIn={signInWithGoogle} usingMockAuth={usingMockAuth} />}
+      </div>
     </>
   );
 }
@@ -1817,16 +1833,71 @@ const NOTES = [
 ];
 
 function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const signInWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
+    }
+  };
+
+  const signOutUser = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="loading-spinner"></div>
+        <p>Loading InsideLLMs...</p>
+      </div>
+    );
+  }
+
   return (
     <SectionTrackerProvider>
       <div className="App">
+        <Header
+          user={user}
+          usingMockAuth={usingMockAuth}
+          onSignIn={signInWithGoogle}
+          onSignOut={signOutUser}
+          onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+        />
         <div className="App-container">
-          <div className="Navigation-Section">
-            <Sidebar items={NAV_ITEMS} />
+          {isSidebarOpen && (
+            <div
+              className="sidebar-backdrop"
+              onClick={() => setIsSidebarOpen(false)}
+            />
+          )}
+          <div className={`Navigation-Section ${isSidebarOpen ? "open" : ""}`}>
+            <Sidebar
+              items={NAV_ITEMS}
+              isAuthenticated={!!user}
+              signInWithGoogle={signInWithGoogle}
+              closeSidebar={() => setIsSidebarOpen(false)}
+            />
           </div>
           <div className="Content-Section">
             <div className="Content-Main">
-              <Content />
+              <Content user={user} signInWithGoogle={signInWithGoogle} usingMockAuth={usingMockAuth} />
             </div>
             <div className="Content-Notes">
               <StickyNotesRail notes={NOTES} />
