@@ -83,9 +83,7 @@ body {
   font-weight: 700;
   font-size: 1.25rem;
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, var(--primary-color), #818cf8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #111827;
   font-family: 'Montserrat', sans-serif;
 }
 

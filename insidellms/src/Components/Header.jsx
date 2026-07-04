@@ -30,7 +30,6 @@ export default function Header({ user, usingMockAuth, onSignIn, onSignOut, onTog
           </svg>
         </button>
         <div className="header-logo">
-          <span className="logo-icon-main">🤖</span>
           <span className="logo-text">InsideLLMs</span>
         </div>
       </div>
