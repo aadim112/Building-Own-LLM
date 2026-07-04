@@ -15,20 +15,6 @@ export default function LockOverlay({ onSignIn, usingMockAuth }) {
             </div>
           </div>
         )}
-        <div className="lock-icon-container">
-          <svg
-            className="lock-svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-          </svg>
-        </div>
         <h2 className="lock-title">Unlock Full Documentation</h2>
         <p className="lock-description">
           You are currently viewing a preview of the website. Sign in with Google to unlock full interactive guides, diagrams, and deep dives into building LLMs.
