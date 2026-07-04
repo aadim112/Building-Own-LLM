@@ -6,7 +6,7 @@
 //   3. Fill with TextSection, ImageBlock, CodeSnippet, Callout, DiagramSection
 
 import React, { useState, useEffect } from 'react';
-import { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged, usingMockAuth } from './firebase';
+import { auth, googleProvider, signInWithPopup, signOut, onAuthStateChanged, getRedirectResult, usingMockAuth } from './firebase';
 import Header from './Components/Header';
 import LockOverlay from './Components/LockOverlay';
 import './App.css';
@@ -1843,6 +1843,21 @@ function App() {
       setLoading(false);
     });
     return () => unsubscribe();
+  }, []);
+
+  // Handle redirect result on mobile after returning from Google sign-in page
+  useEffect(() => {
+    if (getRedirectResult) {
+      getRedirectResult(auth).then((result) => {
+        if (result && result.user) {
+          setUser(result.user);
+        }
+      }).catch((error) => {
+        if (error.code !== 'auth/null-user') {
+          console.error("Redirect sign-in error:", error);
+        }
+      });
+    }
   }, []);
 
   const signInWithGoogle = async () => {

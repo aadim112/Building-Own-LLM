@@ -1,5 +1,13 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
+  signOut,
+  onAuthStateChanged
+} from "firebase/auth";
 
 // Load configuration from environment variables, falling back to your provided credentials
 // if environment variables are not loaded by the bundler.
@@ -12,18 +20,13 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID || "1:836701335964:web:d7b2430266c79300c85859"
 };
 
-// Debug logging (masked API key for safety)
-console.log("Firebase Config debug:", {
-  apiKeyPresent: !!firebaseConfig.apiKey,
-  apiKeyVal: firebaseConfig.apiKey ? `${firebaseConfig.apiKey.substring(0, 5)}...` : "empty",
-  authDomain: firebaseConfig.authDomain,
-  projectId: firebaseConfig.projectId
-});
+// Detect if user is on a mobile device
+const isMobile = () => /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 // Check if configuration is set and valid
-const isConfigValid = 
-  firebaseConfig.apiKey && 
-  firebaseConfig.apiKey !== "your_api_key_here" && 
+const isConfigValid =
+  firebaseConfig.apiKey &&
+  firebaseConfig.apiKey !== "your_api_key_here" &&
   firebaseConfig.apiKey.trim() !== "";
 
 let auth;
@@ -54,6 +57,7 @@ if (isConfigValid) {
 let signInWithPopupWrapper;
 let signOutWrapper;
 let onAuthStateChangedWrapper;
+let getRedirectResultWrapper;
 
 if (usingMockAuth) {
   console.warn(
@@ -100,18 +104,33 @@ if (usingMockAuth) {
       mockCallbacks.delete(callback);
     };
   };
+
+  getRedirectResultWrapper = async () => null;
+
 } else {
-  signInWithPopupWrapper = signInWithPopup;
+  // Smart sign-in: use redirect on mobile (avoids popup blockers), popup on desktop
+  signInWithPopupWrapper = async (authInstance, provider) => {
+    if (isMobile()) {
+      // On mobile, redirect is more reliable than popup
+      await signInWithRedirect(authInstance, provider);
+      return null; // Result is handled by getRedirectResult on app load
+    } else {
+      return signInWithPopup(authInstance, provider);
+    }
+  };
+
   signOutWrapper = signOut;
   onAuthStateChangedWrapper = onAuthStateChanged;
+  getRedirectResultWrapper = getRedirectResult;
 }
 
-export { 
-  auth, 
-  googleProvider, 
-  signInWithPopupWrapper as signInWithPopup, 
-  signOutWrapper as signOut, 
+export {
+  auth,
+  googleProvider,
+  signInWithPopupWrapper as signInWithPopup,
+  signOutWrapper as signOut,
   onAuthStateChangedWrapper as onAuthStateChanged,
+  getRedirectResultWrapper as getRedirectResult,
   usingMockAuth
 };
 export default isConfigValid && !usingMockAuth ? auth : null;
